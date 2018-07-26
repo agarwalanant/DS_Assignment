@@ -1,5 +1,5 @@
 #include<iostream>
-#include<String>
+#include<string>
 
 using namespace std;
 
@@ -21,14 +21,15 @@ class data
 {
 	public:
 		
-		student stud[];
+		student stud[50];
+		int length = 0;
 		
 		
 //display
 		
-void display(student stud[])
+void display()
 {
-	for(int i = 0;i<=50;i++)
+	for(int i = 0;i<length;i++)
 	{
 		cout<<stud[i].name;
 		cout<<stud[i].branch;
@@ -41,47 +42,73 @@ void display(student stud[])
 
 //sorting
 
-void sort(student data[],int length)
+void sort()
 {
 	for (int i = 0; i < length; i++)
 	{
 		int j =i;
-		while(data[j].rollno<data[j-1].rollno)
-		{
-			swap(&data[j],&data[j-1]);
+		while(stud[j].rollno<stud[j-1].rollno & j>0)
+
+			swap(&stud[j],&stud[j-1]);
 			j--;
 		}
 	}
-}
 
-int search(student arr[], int l, int r, int x)
+
+int binary(int l, int r, int x)
 {
    if (r >= l)
    {
         int mid = l + (r - l)/2;
  
 
-        if (arr[mid].rollno == x)  
+        if (stud[mid].rollno == x)
             return mid;
  
 
-        if (arr[mid].rollno > x) 
-            return search(arr, l, mid-1, x);
+        if (stud[mid].rollno > x)
+            return binary(l, mid - 1, x);
  
 
-        return search(arr, mid+1, r, x);
+        return binary(mid + 1, r, x);
    }
  
 
    return -1;
 }
 
+int search(int s)
+{
+    int index = binary(0,length,s);
+    return index;
+}
+
 void publish()
 {
+    int q=1,i =0;
 	while(true)
 	{
 		cout<<"Enter Name";
+		cin>>stud[i].name;
+		cout<<"Enter Rollno";
+		cin>>stud[i].rollno;
+		cout<<"Enter CGPA";
+		cin>>stud[i].CGPA;
+		length++;
+		++i;
+		cout<<"0 to continue and 1 to quit";
+		cin>>q;
+
+		if(q==1)
+		    break;
 	}
+}
+
+void print(int index)
+{
+    cout<<"Name: "<<stud[index].name<<endl;
+    cout<<"Roll no: "<<stud[index].rollno<<endl;
+    cout<<"CGPA: "<<stud[index].CGPA<<endl;
 }
 
 };
@@ -91,6 +118,20 @@ void publish()
 
 int main()
 {
-	student s1 = new student;
+	data c1;
+	c1.publish();
+	c1.sort();
+    c1.display();
+    int index = c1.search(5);
+    cout<<"SEARCH RESULT"<<endl;
+    if(index == -1)
+    {
+        cout<<"Not Found";
+    }
+    else
+        c1.print(index);
+
+
+
 	return 0;
 }
