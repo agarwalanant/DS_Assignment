@@ -6,10 +6,10 @@ using namespace std;
 class student
 {
 	public:
-		string name;
-		string branch;
-		int rollno;
-		int CGPA;
+		string name= NULL;
+		string branch= NULL;
+		int rollno=0;
+		int CGPA=0;
 };
 void swap(student *first, student *second)
 {
@@ -50,7 +50,7 @@ void sort()
 		while(stud[j].rollno<stud[j-1].rollno & j>0)
 
 			swap(&stud[j],&stud[j-1]);
-			j--;
+		j--;
 		}
 	}
 
@@ -94,6 +94,8 @@ void publish()
 		cin>>stud[i].rollno;
 		cout<<"Enter CGPA";
 		cin>>stud[i].CGPA;
+		cout<<"Emter Branch";
+		cin>>stud[i].branch;
 		length++;
 		++i;
 		cout<<"0 to continue and 1 to quit";
@@ -130,8 +132,5 @@ int main()
     }
     else
         c1.print(index);
-
-
-
 	return 0;
 }
