@@ -22,8 +22,7 @@ class data
 	public:
 		
 		student stud[];
-		student search();
-		void publish();
+		
 		
 //display
 		
@@ -55,7 +54,7 @@ void sort(student data[],int length)
 	}
 }
 
-student search(student arr[], int l, int r, int x)
+int search(student arr[], int l, int r, int x)
 {
    if (r >= l)
    {
@@ -63,7 +62,7 @@ student search(student arr[], int l, int r, int x)
  
 
         if (arr[mid].rollno == x)  
-            return arr[mid];
+            return mid;
  
 
         if (arr[mid].rollno > x) 
@@ -77,6 +76,14 @@ student search(student arr[], int l, int r, int x)
    return -1;
 }
 
+void publish()
+{
+	while(true)
+	{
+		cout<<"Enter Name";
+	}
+}
+
 };
 
 
@@ -84,6 +91,6 @@ student search(student arr[], int l, int r, int x)
 
 int main()
 {
-	
+	student s1 = new student;
 	return 0;
 }
