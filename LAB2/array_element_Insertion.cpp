@@ -30,6 +30,8 @@ public:bool insert(int pos,int val)
         }
         arr[pos]=val;
     }
+
+
 void print()
 {
     for (int i = 0; i <20 ; ++i) {
