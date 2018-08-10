@@ -39,26 +39,7 @@ public:stack()
         vector<char> vec;
 }
 
-int postfix(stack s){
-        stack data;
-        char pop = s.pop();
-        if(isdigit(pop))
-        {
-            data.push(pop);
-        }
-        else {
-            int val1 = static_cast<int> (s.pop());
-            int val2 = static_cast<int> (s.pop());
-            switch(pop)
-            {
-                case '+':data.push(static_cast<char> (val1+val2)); break;
-                case '-':data.push(static_cast<char> (val1-val2)); break;
-                case '*':data.push(static_cast<char> (val1*val2)); break;
-                case '/':data.push(static_cast<char> (val1/val2)); break;
-            }
 
-        }
-    }
 
 
 };
