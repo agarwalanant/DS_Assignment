@@ -10,21 +10,22 @@ class Node
 {
 public:
 
-    int data;
+    char data;
     Node *next;
 };
 
 class stacks
 {
 public:
-    Node *top;
+    Node *top= NULL;
     int count =0;
-    int pop();
-    bool push(int);
+    char pop();
+    bool push(char);
     bool isEmpty();
 
 };
-int stacks::pop()
+
+char stacks::pop()
 {
     if(top == NULL)
     {
@@ -36,10 +37,10 @@ int stacks::pop()
 
         top = top ->next;
         count--;
-        int data = old -> data;
+        char data = old -> data;
         delete(old);
         count--;
-        cout<<"Number of elements in stack "<< count<<endl;
+//        cout<<"Number of elements in stack "<< count<<endl;
         return data;
 
 
@@ -47,11 +48,11 @@ int stacks::pop()
 }
 
 
-bool stacks::push(int data)
+bool stacks::push(char data)
 {
     auto newtop = new Node;
 
-    if (top == nullptr)
+    if (top == NULL)
     {
         newtop ->data = data;
         newtop ->next = top;
@@ -65,8 +66,8 @@ bool stacks::push(int data)
         top = newtop;
         count++;
     }
-    cout<<newtop ->data<<endl;
-    cout<<"number of elements in stack "<<count<<endl;
+//    cout<<newtop ->data<<endl;
+//    cout<<"number of elements in stack "<<count<<endl;
 
     return true;
 }
@@ -77,38 +78,46 @@ bool stacks::isEmpty()
 }
 
 
-int postfix(stacks s){
+int postfix(string s) {
 
-    char pop = s.pop();
-    vector<char> data {};
-    for (int i = 0; i < s.size(); ++i) {
+    stacks *data = new stacks[s.length()];
 
-    }
-    if(isdigit(pop))
-    {
-        data.push_back(pop);
-    }
-    else {
-        int val1 = static_cast<int> (s.pop_back());
-        int val2 = static_cast<int> (s.pop_back());
-        switch(pop)
-        {
-            case '+':data.push(static_cast<char> (val1+val2)); break;
-            case '-':data.push(static_cast<char> (val1-val2)); break;
-            case '*':data.push(static_cast<char> (val1*val2)); break;
-            case '/':data.push(static_cast<char> (val1/val2)); break;
-            default: cout<<"Check the value at"<<endl;
+    for (int i = 0; i < s.length(); ++i) {
+
+    cout<<"string at "<<i<<" "<< s.at(i)<<endl;
+    if (isdigit(s.at(i))) {
+        data->push(s.at(i)-'0');
+    } else {
+        int val1 = static_cast<int> (data->pop());
+        int val2 = static_cast<int> (data->pop());
+        cout<<"val1 "<<val1<<endl;
+        cout<<"val2 "<<val2<<endl;
+        switch (s.at(i)) {
+            case '+':
+                cout<<data->push(static_cast<char> (val2 + val1))<<endl;
+                break;
+            case '-':
+                cout<<data->push(static_cast<char> (val2 - val1))<<endl;
+                break;
+            case '*':
+                cout<<data->push(static_cast<char> (val2 * val1))<<endl;
+                break;
+            case '/':
+                cout<<data->push(static_cast<char> (val2 / val1))<<endl;
+                break;
+            default:
+                cout << "Check the value at" << endl;
         }
 
     }
-
-    return static_cast<int> (data.pop());
+}
+    return static_cast<int> (data->pop());
 }
 
 int main()
 {
-    char a[] {'1','2','+'};
-    cout<<postfix(a)<<endl;
+    char exp[] = "37*82/+";
+    cout<<postfix(exp)<<endl;
 
     return 0;
 }
