@@ -1,96 +1,123 @@
 //
-// Created by vin on 8/16/18.
+// Created by Anant Agarwal on 8/9/18.
 //
-#include <cstring>
 #include "iostream"
-#include "cctype"
-#include "string"
-#include "stdlib.h"
+#include "vector"
 
 using namespace std;
-struct Stack
+
+class Node
 {
-    int top;
-    unsigned capacity;
-    char* array;
+public:
+
+    char data;
+    Node *next;
 };
 
-// Stack Operations
-struct Stack* createStack( unsigned capacity )
+class stacks
 {
-    struct Stack* stack = new Stack;
+public:
+    Node *top= NULL;
+    int count =0;
+    char pop();
+    bool push(char);
+    bool isEmpty();
 
-    if (!stack) return NULL;
+};
 
-    stack->top = -1;
-    stack->capacity = capacity;
-    stack->array = new char[capacity];
-
-    if (!stack->array) return NULL;
-
-    return stack;
-}
-
-int isEmpty(struct Stack* stack)
+char stacks::pop()
 {
-    return stack->top == -1 ;
-}
-
-char peek(struct Stack* stack)
-{
-    return stack->array[stack->top];
-}
-
-char pop(struct Stack* stack)
-{
-    if (!isEmpty(stack))
-        return stack->array[stack->top--] ;
-    return '$';
-}
-
-void push(struct Stack* stack, char op)
-{
-    stack->array[++stack->top] = op;
-}
-
-
-int Postfix(char* exp)
-{
-
-    struct Stack* stack = createStack(strlen(exp));
-    int i;
-
-
-    if (!stack) return -1;
-
-
-    for (i = 0; exp[i]; ++i)
+    if(top == NULL)
     {
+        cout<<"Empty stack"<<endl;
+    }
+    else
+    {
+        Node *old = top;
 
-        if (isdigit(exp[i]))
-            push(stack, exp[i] - '0');
+        top = top ->next;
+        count--;
+        char data = old -> data;
+        delete(old);
+        count--;
+//        cout<<"Number of elements in stack "<< count<<endl;
+        return data;
 
 
-        else
-        {
-            int val1 = pop(stack);
-            int val2 = pop(stack);
-            switch (exp[i])
-            {
-                case '+': push(stack, val2 + val1); break;
-                case '-': push(stack, val2 - val1); break;
-                case '*': push(stack, val2 * val1); break;
-                case '/': push(stack, val2/val1);   break;
+    }
+}
+
+
+bool stacks::push(char data)
+{
+    auto newtop = new Node;
+
+    if (top == NULL)
+    {
+        newtop ->data = data;
+        newtop ->next = top;
+        top = newtop;
+        count++;
+    }
+    else
+    {
+        newtop ->data= data;
+        newtop-> next = top;
+        top = newtop;
+        count++;
+    }
+//    cout<<newtop ->data<<endl;
+//    cout<<"number of elements in stack "<<count<<endl;
+
+    return true;
+}
+
+bool stacks::isEmpty()
+{
+    return static_cast<bool>(top == nullptr ? 1 : 0);
+}
+
+
+int prefix(string s) {
+
+    stacks *data = new stacks[s.length()];
+
+    for (int i = s.length()-1; i >= 0; --i) {
+
+        cout<<"char at "<<i<<" "<< s.at(i)<<endl;
+        if (isdigit(s.at(i))) {
+            data->push(s.at(i)-'0');
+        } else {
+            int val1 = static_cast<int> (data->pop());
+            int val2 = static_cast<int> (data->pop());
+//            cout<<"val1 "<<val1<<endl;
+//            cout<<"val2 "<<val2<<endl;
+            switch (s.at(i)) {
+                case '+':
+                    data->push(static_cast<char> (val2 + val1));
+                    break;
+                case '-':
+                    data->push(static_cast<char> (val1 - val2));
+                    break;
+                case '*':
+                    data->push(static_cast<char> (val2 * val1));
+                    break;
+                case '/':
+                    data->push(static_cast<char> (val1 / val2));
+                    break;
+                default:
+                    cout << "Check the value at" << endl;
             }
+
         }
     }
-    return pop(stack);
-
+    return static_cast<int> (data->pop());
 }
 
 int main()
 {
-    char exp[] = "37*82/+";
-    cout<<Postfix(exp)<<endl;
+    char exp[] = "+*37/82";
+    cout<<"Ans "<<prefix(exp)<<endl;
+
     return 0;
 }

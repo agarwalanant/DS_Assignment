@@ -84,7 +84,7 @@ int postfix(string s) {
 
     for (int i = 0; i < s.length(); ++i) {
 
-    cout<<"string at "<<i<<" "<< s.at(i)<<endl;
+    cout<<"char at "<<i<<" "<< s.at(i)<<endl;
     if (isdigit(s.at(i))) {
         data->push(s.at(i)-'0');
     } else {
@@ -94,16 +94,16 @@ int postfix(string s) {
         cout<<"val2 "<<val2<<endl;
         switch (s.at(i)) {
             case '+':
-                cout<<data->push(static_cast<char> (val2 + val1))<<endl;
+                data->push(static_cast<char> (val2 + val1));
                 break;
             case '-':
-                cout<<data->push(static_cast<char> (val2 - val1))<<endl;
+                data->push(static_cast<char> (val2 - val1));
                 break;
             case '*':
-                cout<<data->push(static_cast<char> (val2 * val1))<<endl;
+                data->push(static_cast<char> (val2 * val1));
                 break;
             case '/':
-                cout<<data->push(static_cast<char> (val2 / val1))<<endl;
+                cout<<data->push(static_cast<char> (val2 / val1));
                 break;
             default:
                 cout << "Check the value at" << endl;
