@@ -84,14 +84,14 @@ int postfix(string s) {
 
     for (int i = 0; i < s.length(); ++i) {
 
-    cout<<"char at "<<i<<" "<< s.at(i)<<endl;
+//    cout<<"char at "<<i<<" "<< s.at(i)<<endl;
     if (isdigit(s.at(i))) {
         data->push(s.at(i)-'0');
     } else {
         int val1 = static_cast<int> (data->pop());
         int val2 = static_cast<int> (data->pop());
-        cout<<"val1 "<<val1<<endl;
-        cout<<"val2 "<<val2<<endl;
+//        cout<<"val1 "<<val1<<endl;
+//        cout<<"val2 "<<val2<<endl;
         switch (s.at(i)) {
             case '+':
                 data->push(static_cast<char> (val2 + val1));
